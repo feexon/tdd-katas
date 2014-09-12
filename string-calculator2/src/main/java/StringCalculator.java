@@ -7,11 +7,15 @@ import java.util.regex.Pattern;
  */
 public class StringCalculator {
     public int add(String numbers) {
-        Matcher definition = Pattern.compile("^//(?:(?:\\[.*?\\])+|.)\n").matcher(numbers);
+        Matcher definition = Pattern.compile("^//((?:\\[.*?\\])+|.)\n").matcher(numbers);
         if (definition.find()) {
-            return sum(of(numbers.substring(definition.end())).split(by(numbers.substring(2, definition.end() - 1))));
+            return sum(of(numbers.substring(definition.end())).split(by(customDelimiters(definition))));
         }
         return sum(of(numbers).split("[,\n]"));
+    }
+
+    private String customDelimiters(Matcher definition) {
+        return definition.group(1);
     }
 
     private String of(String numbers) {
