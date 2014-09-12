@@ -1,0 +1,27 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.5
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+
+
+apply plugin: 'idea'
+idea {
+    module {
+
+        inheritOutputDirs = false
+        outputDir = sourceSets.main.output.classesDir
+        testOutputDir = sourceSets.test.output.classesDir
+        downloadSources = false
+
+        excludeDirs = [file('.idea'), file('.gradle'), file('gradle')]
+    }
+}
